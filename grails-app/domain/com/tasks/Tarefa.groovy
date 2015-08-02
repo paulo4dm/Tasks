@@ -3,7 +3,7 @@ package com.tasks
 class Tarefa {
 	String nome
 	Date deadline
-	String categoria
+	Categoria categoria
 
     static constraints = {
     	nome()
