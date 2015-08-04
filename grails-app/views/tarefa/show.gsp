@@ -36,7 +36,7 @@
 				<li class="fieldcontain">
 					<span id="deadline-label" class="property-label"><g:message code="tarefa.deadline.label" default="Deadline" /></span>
 					
-						<span class="property-value" aria-labelledby="deadline-label"><g:formatDate date="${tarefaInstance?.deadline}" /></span>
+						<span class="property-value" aria-labelledby="deadline-label"><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance?.deadline}" /></span>
 					
 				</li>
 				</g:if>
@@ -49,6 +49,10 @@
 					
 				</li>
 				</g:if>
+
+
+
+
 			
 			</ol>
 			<g:form url="[resource:tarefaInstance, action:'delete']" method="DELETE">

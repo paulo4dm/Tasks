@@ -1,13 +1,11 @@
 <%@ page import="com.tasks.Tarefa" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: tarefaInstance, field: 'nome', 'error')} required">
 	<label for="nome">
 		<g:message code="tarefa.nome.label" default="Tarefa" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="nome" required="" value="${tarefaInstance?.nome}"/>
+	<g:textField name="nome" required="" value="${tarefaInstance?.nome}" class="large" placeholder="Estudar e programar" />
 
 </div>
 

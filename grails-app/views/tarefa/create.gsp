@@ -31,6 +31,7 @@
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="Salvar tarefa" />
+					<input type='reset' value='Limpar tarefa' />
 				</fieldset>
 			</g:form>
 		</div>
