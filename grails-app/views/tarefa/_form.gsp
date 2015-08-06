@@ -13,7 +13,7 @@
 		<g:message code="tarefa.deadline.label" default="Finalizar até" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="deadline" precision="day"  value="${tarefaInstance?.deadline}" 
+	<g:datePicker name="deadline" precision="day"  value="${tarefaInstance?.deadline}" years="${2015..2099}" 
 	default="none" noSelection="['':'']" />
 </div>
 

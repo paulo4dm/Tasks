@@ -60,15 +60,30 @@
 					</thead>
 					<tbody>
 					<g:each in="${tarefaInstanceList}" status="i" var="tarefaInstance">
-						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						
+					<%
+						deadline = tarefaInstance.deadline
+						now = new Date().clearTime()
+						alert = now.plus(2)
+
+						if(deadline < now){
+							fundo = "overdue"
+						}else if(deadline >= now && deadline <= alert){
+							fundo = "warning"
+						}else{
+							fundo = ""
+						}						
+					%>
+						<tr class='${fundo}'>
+					
 							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">
 								${fieldValue(bean: tarefaInstance, field: "nome")}
 							</td>
 						
-							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}"><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance.deadline}" /></td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}"><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance.deadline}" />
+							</td>
 						
-							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">${fieldValue(bean: tarefaInstance, field: "categoria.categoria")}</td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">${fieldValue(bean: tarefaInstance, field: "categoria.categoria")}
+							</td>
 
 							<td>
 								<nav>
@@ -97,6 +112,6 @@
 			</section>
 
 			<footer>Você tem <g:include controller="tarefa" action="countTarefa" /> tarefas</footer>
-		</main>		
+		</main>	
 	</body>
 </html>
