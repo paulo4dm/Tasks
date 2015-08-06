@@ -108,6 +108,7 @@
 			</div>
 				<nav>
 					<a href="#" id="btnAddTask" onclick="document.getElementById('taskCreation').className = '';">Adicionar tarefa</a>
+					<g:link class="btn" controller="categoria" action="index">Adicionar categoria</g:link>
 				</nav>
 			</section>
 

@@ -6,6 +6,10 @@ class Tarefa {
 	Categoria categoria
 	Boolean completed = false
 
+	static mapping = {
+	    sort "deadline"
+	}
+
     static constraints = {
     	nome()
     	deadline()

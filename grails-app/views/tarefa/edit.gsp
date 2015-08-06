@@ -13,7 +13,7 @@
 	<body>
 		<main id="taskPage">
 			%{-- FORM DE CRIAÇÃO DE TAREFAS --}%
-			<section id="taskCreation">
+			<section id="taskCreation"	>
 				<div id="create-tarefa" role="main">
 					
 					<g:if test="${flash.message}">
@@ -26,14 +26,14 @@
 						</g:eachError>
 					</ul>
 					</g:hasErrors>
-					<g:form id="formAddTask" url="[resource:tarefaInstance, action:'edit']" >
+					<g:form url="[resource:tarefaInstance, action:'save']" >
 						<fieldset class="form">
 							<g:render template="form"/>
 						</fieldset>
 						<br>
 						<fieldset>
 							<g:submitButton name="create" class="btn" value="Salvar tarefa" />
-							<a href="#" id="btnDelTask" onclick="document.getElementById('formAddTask').reset();">Limpar tarefa</a>
+							<input type='reset' class="btn" value='Limpar tarefa' />
 						</fieldset>
 					</g:form>
 				</div>
@@ -60,13 +60,30 @@
 					</thead>
 					<tbody>
 					<g:each in="${tarefaInstanceList}" status="i" var="tarefaInstance">
-						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<%
+						deadline = tarefaInstance.deadline
+						now = new Date().clearTime()
+						alert = now.plus(2)
+
+						if(deadline < now){
+							fundo = "overdue"
+						}else if(deadline >= now && deadline <= alert){
+							fundo = "warning"
+						}else{
+							fundo = ""
+						}						
+					%>
+						<tr class='${fundo}'>
+					
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">
+								${fieldValue(bean: tarefaInstance, field: "nome")}
+							</td>
 						
-							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}"><g:link action="show" id="${tarefaInstance.id}">${fieldValue(bean: tarefaInstance, field: "nome")}</g:link></td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}"><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance.deadline}" />
+							</td>
 						
-							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}"><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance.deadline}" /></td>
-						
-							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">${fieldValue(bean: tarefaInstance, field: "categoria.categoria")}</td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">${fieldValue(bean: tarefaInstance, field: "categoria.categoria")}
+							</td>
 
 							<td>
 								<nav>
@@ -91,10 +108,11 @@
 			</div>
 				<nav>
 					<a href="#" id="btnAddTask" onclick="document.getElementById('taskCreation').className = '';">Adicionar tarefa</a>
+					<g:link class="btn" controller="categoria" action="index">Adicionar categoria</g:link>
 				</nav>
 			</section>
 
 			<footer>Você tem <g:include controller="tarefa" action="countTarefa" /> tarefas</footer>
-		</main>		
+		</main>	
 	</body>
 </html>

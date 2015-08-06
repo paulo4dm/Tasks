@@ -11,10 +11,6 @@ class TarefaController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        //def hoje = new Date()
-        //def proximo = Tarefa.findAllByDeadlineBetween(hoje+2, hoje)
-
-
         params.max = Math.min(max ?: 10, 100)
         respond Tarefa.list(params), model:[tarefaInstanceCount: Tarefa.count()]
     }
