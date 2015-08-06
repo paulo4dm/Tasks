@@ -51,7 +51,14 @@
 				</g:if>
 
 
-
+	<li class="fieldcontain">
+		<span id="completed-label" class="property-label">
+			<g:message code="tarefa.completed.label" default="Completed" />
+		</span>
+		<span class="property-value" aria-labelledby="completed-label">
+			<g:formatBoolean boolean="${tarefaInstance?.completed}" true="Yes" false="No" />
+		</span>
+	</li>
 
 			
 			</ol>

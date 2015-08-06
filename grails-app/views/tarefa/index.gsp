@@ -62,16 +62,24 @@
 					<g:each in="${tarefaInstanceList}" status="i" var="tarefaInstance">
 						<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						
-							<td><g:link action="show" id="${tarefaInstance.id}">${fieldValue(bean: tarefaInstance, field: "nome")}</g:link></td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">
+								${fieldValue(bean: tarefaInstance, field: "nome")}
+							</td>
 						
-							<td><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance.deadline}" /></td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}"><g:formatDate format="dd/MM/yyyy" date="${tarefaInstance.deadline}" /></td>
 						
-							<td>${fieldValue(bean: tarefaInstance, field: "categoria.categoria")}</td>
+							<td class="${tarefaInstance?.completed ? 'taskCompleted':''}">${fieldValue(bean: tarefaInstance, field: "categoria.categoria")}</td>
 
 							<td>
-								<g:link class="btn" action="edit" resource="${tarefaInstance}">Editar</g:link>
-								<g:link class="btn" action="complete" resource="${tarefaInstance}">Completar</g:link>
-								<g:link class="btn" action="delete" resource="${tarefaInstance}">Deletar</g:link>
+								<nav>
+									<g:form url="[resource:tarefaInstance, action:'delete']" method="DELETE">
+										<g:if test="${!tarefaInstance?.completed}">
+											<g:link class="btn" action="edit" resource="${tarefaInstance}">Editar</g:link>
+											<g:link class="btn" action="complete" resource="${tarefaInstance}">Completar</g:link>
+										</g:if>						
+										<g:actionSubmit class="btn" action="delete" value="Deletar" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+									</g:form>								
+								</nav>
 							</td>
 						
 						</tr>
@@ -88,7 +96,7 @@
 				</nav>
 			</section>
 
-			<footer>Você tem <span id="taskCount">5</span> tarefas</footer>
+			<footer>Você tem <g:include controller="tarefa" action="countTarefa" /> tarefas</footer>
 		</main>		
 	</body>
 </html>

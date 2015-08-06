@@ -6,7 +6,6 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="nome" required="" value="${tarefaInstance?.nome}" class="large" placeholder="Estudar e programar" />
-
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tarefaInstance, field: 'deadline', 'error')} required">
@@ -16,7 +15,6 @@
 	</label>
 	<g:datePicker name="deadline" precision="day"  value="${tarefaInstance?.deadline}" 
 	default="none" noSelection="['':'']" />
-
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tarefaInstance, field: 'categoria', 'error')} required">
@@ -24,8 +22,12 @@
 		<g:message code="tarefa.categoria.label" default="Categoria" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select name="categoria" from="${com.tasks.Categoria.list()}" optionValue="categoria" optionKey="id" 
-	noSelection="['':'- Selecione a categoria -']" />
-
+	<g:if test="${params.action == 'edit'}">
+		<g:select name="categoria" from="${com.tasks.Categoria.list()}" optionValue="categoria" optionKey="id" 
+		noSelection="['':'- Selecione a categoria -']" value='${tarefaInstance?.categoria.id}' />
+	</g:if>
+	<g:else>
+		<g:select name="categoria" from="${com.tasks.Categoria.list()}" optionValue="categoria" optionKey="id" 
+		noSelection="['':'- Selecione a categoria -']" />	
+	</g:else>
 </div>
-
